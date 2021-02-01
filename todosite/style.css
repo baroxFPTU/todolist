@@ -44,6 +44,13 @@ body , html{
   color: transparent;   
 }
 
+/* fix for Safari */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .todo__heading { 
+        color:#cc2b5e;
+      }
+}}
 .todo__list {
   display: flex;
   justify-content: center;
