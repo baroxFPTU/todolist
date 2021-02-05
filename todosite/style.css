@@ -35,18 +35,22 @@ body , html{
 .todo__heading {
   width: 100%;
   padding: 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-   background-image: #cc2b5e;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #753a88, #cc2b5e);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #753a88, #cc2b5e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  text-align: center;
+  background: #cc2b5e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #753a88, #cc2b5e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #753a88, #cc2b5e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   -webkit-background-clip: text;
   -moz-background-clip: text;
   color: transparent;   
 }
 
+/* fix for Safari */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .todo__heading { 
+        color:#cc2b5e;
+      }
+}}
 .todo__list {
   display: flex;
   justify-content: center;
@@ -200,4 +204,20 @@ body, html {
 .todo__add .todo__input, .todo__add #todo__btn {
   width:100%
 }
+}
+
+/* loading page section */
+
+.loading-page {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: all .4s ease-in-out;
 }

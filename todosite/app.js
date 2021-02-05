@@ -34,11 +34,22 @@ todoList.onclick = (e) => {
    }
  }
 document.addEventListener('DOMContentLoaded',()=>{
+    loadingPage();
     getTodos();
     count = checkCount();
 });
 
 // Functions
+function renderTodos (value, id) {
+    return `<li class="todo__item">
+    <div class="checkbox__container">
+      <label class="todo__check" for="todo__toggle${id}">
+  <input type="checkbox" id="todo__toggle${id}">
+  <div class="checkbox"></div>
+  </label></div>
+      <p class="todo__content">${value}</p>
+  </li>`;
+}
 function checkCount() {
     let saveCount;
     if (localStorage.getItem('todos') === null){
@@ -53,14 +64,7 @@ function checkCount() {
 function addInput() {
   if ((todoInput.value.trim() !='')){
   count++;
-  html += `<li class="todo__item">
-  <div class="checkbox__container">
-    <label class="todo__check" for="todo__toggle${count}">
-<input type="checkbox" id="todo__toggle${count}">
-<div class="checkbox"></div>
-</label></div>
-    <p class="todo__content">${todoInput.value}</p>
-</li>`;
+  html += renderTodos(todoInput.value, count);
   todoList.innerHTML = html;
   saveLocalTodos(todoInput.value);
   todoInput.value = '';
@@ -91,14 +95,7 @@ function getTodos (){
         todos = JSON.parse(localStorage.getItem('todos'));
     }
     todos.forEach((todo, index) => {
-        html += `<li class="todo__item">
-  <div class="checkbox__container">
-    <label class="todo__check" for="todo__toggle${index+1}">
-<input type="checkbox" id="todo__toggle${index+1}">
-<div class="checkbox"></div>
-</label></div>
-    <p class="todo__content">${todo}</p>
-</li>`;
+        html += renderTodos(todo, index+1);
     });
     todoList.innerHTML = html;
 }
@@ -115,4 +112,16 @@ function removeSaveLocalStorage (todoIndex) {
 
     todos.splice(todos.indexOf(todo),1);
     localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function loadingPage (){
+    setTimeout(
+        () => {
+            const loading = document.querySelector('.loading-page');
+            loading.style.opacity = "0";
+            loading.addEventListener ('transitionend', () => {
+                loading.style.display = "none";
+            })
+        }
+        ,3000)
 }
